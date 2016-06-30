@@ -22,11 +22,11 @@ public class ParkZone2 extends ParkZone {
         }
 
         CheckInDate checkInDate = rangeDate.getCheckInDate();
-        long totalHoursStayInCheckInDay = checkInDate.getTotalHoursToEndDay();
+        long totalHoursStayInCheckInDay = checkInDate.getTotalHoursToEndOfDay();
         Float totalPriceInCheckInDay = totalHoursStayInCheckInDay * (checkInDate.isWeekday() ? PRICE_PER_HOUR_ON_WEEKDAY : PRICE_PER_HOUR_ON_WEEKEND);
 
         CheckOutDate checkOutDate = rangeDate.getCheckOutDate();
-        long totalHoursStayInCheckOutDay = checkOutDate.getTotalHoursFromStartDay();
+        long totalHoursStayInCheckOutDay = checkOutDate.getTotalHoursFromStartOfDay();
         Float totalPriceInCheckOutDay = totalHoursStayInCheckOutDay * (checkOutDate.isWeekday() ? PRICE_PER_HOUR_ON_WEEKDAY : PRICE_PER_HOUR_ON_WEEKEND);
 
         Float totalPriceInStayDays = 0F;

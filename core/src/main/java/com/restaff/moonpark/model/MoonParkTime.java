@@ -34,8 +34,20 @@ public class MoonParkTime {
         this.minute = minute;
     }
 
+    /**
+     * Get total minutes of time
+     * @return total minutes of time
+     */
     public int getTotalMinutes() {
         return hour * 60 + minute;
+    }
+
+    /**
+     * Check the validation of time
+     * @return TRUE if time is valid else return FALSE
+     */
+    public boolean isValid() {
+        return hour >= MIN_HOUR && hour <= MAX_HOUR && minute >= MIN_MUNUTE && minute <= MAX_MINUTE;
     }
 
 }

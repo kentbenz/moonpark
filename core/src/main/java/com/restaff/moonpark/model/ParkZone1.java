@@ -1,11 +1,6 @@
 package com.restaff.moonpark.model;
 
-import com.restaff.moonpark.util.MoonParkUtil;
-
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by DHLE on 6/29/2016.
@@ -26,8 +21,8 @@ public class ParkZone1 extends ParkZone {
             return totalMinutesStayInPark * PRICE_PER_MINUTE;
         }
 
-        long totalMinutesStayInCheckInDay = rangeDate.getCheckInDate().getTotalMinutesToEndDay();
-        long totalMinutesStayInCheckOutDay = rangeDate.getCheckOutDate().getTotalMinutesFromStartDay();
+        long totalMinutesStayInCheckInDay = rangeDate.getCheckInDate().getTotalMinutesToEndOfDay();
+        long totalMinutesStayInCheckOutDay = rangeDate.getCheckOutDate().getTotalMinutesFromStartOfDay();
         long totalMinutesStayDays = 0;
         List<StayInParkDate> stayInParkDateList = rangeDate.getStayInParkExclusiveInOut();
         if (stayInParkDateList == null || stayInParkDateList.isEmpty()) {

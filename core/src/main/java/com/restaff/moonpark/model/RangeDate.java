@@ -1,7 +1,9 @@
 package com.restaff.moonpark.model;
 
-import com.restaff.moonpark.util.MoonParkUtil;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,39 +38,56 @@ public class RangeDate {
         this.checkOutDate = checkOutDate;
     }
 
+    /**
+     * Get total hours from check in to check out
+     * @return the total hours in range
+     * @throws MoonParkException
+     */
     public long getTotalHours() throws MoonParkException {
-        return MoonParkUtil.getHours(checkInDate.getDate(), checkOutDate.getDate());
+        DateTime inJodaTime = new DateTime(checkInDate.getDate().getTime());
+        DateTime outJodaTime = new DateTime(checkOutDate.getDate().getTime());
+
+        return Hours.hoursBetween(inJodaTime, outJodaTime).getHours();
     }
 
+    /**
+     * Get total minutes from check in to check out
+     * @return the total minutes in range
+     * @throws MoonParkException
+     */
     public long getTotalMinutes() throws MoonParkException {
-        return MoonParkUtil.getMinutes(checkInDate.getDate(), checkOutDate.getDate());
+        DateTime inJodaTime = new DateTime(checkInDate.getDate().getTime());
+        DateTime outJodaTime = new DateTime(checkOutDate.getDate().getTime());
+
+        return Minutes.minutesBetween(inJodaTime, outJodaTime).getMinutes();
     }
 
+    /**
+     * Check the validation of range
+     * @return TRUE if range valid else return FALSE
+     */
     public boolean isValid() {
         return checkInDate.isValid() && checkOutDate.isValid() && checkInDate.getDate().before(checkOutDate.getDate());
     }
 
+    /**
+     * Check the check in and check out are same day
+     * @return TRUE if check in and check out are same day else return FALSE
+     */
     public boolean isCheckOutSameCheckInDate() {
-        return MoonParkUtil.isSameDay(checkInDate.getDate(), checkOutDate.getDate());
-    }
-
-    public boolean isCheckOutNextCheckInDate() {
-        Calendar inCa = Calendar.getInstance();
-        inCa.setTime(checkInDate.getDate());
-
-        Calendar outCa = Calendar.getInstance();
-        outCa.setTime(checkOutDate.getDate());
-
-        if (outCa.get(Calendar.DAY_OF_YEAR) - inCa.get(Calendar.DAY_OF_YEAR) == 1) {
-            return true;
+        if (checkInDate.getDate() == null || checkOutDate.getDate() == null) {
+            return false;
         }
 
-        return false;
-
+        return DateUtils.isSameDay(checkInDate.getDate(), checkOutDate.getDate());
     }
 
+    /**
+     * Get all days stays in park between check in and check out but exclusive check in and check out
+     * @return list days stay in park exclusive check in and check out
+     */
     public List<StayInParkDate> getStayInParkExclusiveInOut() {
-        if (isCheckOutSameCheckInDate() || isCheckOutNextCheckInDate()) {
+        if (isCheckOutSameCheckInDate()) {
             return null;
         }
 

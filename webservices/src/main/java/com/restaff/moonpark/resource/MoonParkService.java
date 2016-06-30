@@ -43,11 +43,14 @@ public class MoonParkService {
             @ApiParam(value = "Input the check in date time. Use pattern dd/MM/yyyy HH:mm (Ex: 28/06/2016 09:16)", required = true) @QueryParam("checkIn") String checkIn,
             @ApiParam(value = "Input the check out date time. Use pattern dd/MM/yyyy HH:mm (Ex: 28/06/2016 09:16)", required = true) @QueryParam("checkOut") String checkOut)
             throws ApiException {
+
+        //Find the zone
         ParkZone parkZone = moonParkData.findParkZone(zone);
         if (parkZone == null) {
             throw new NotFoundException(404, "Zone {" + zone + "} not found");
         }
 
+        //Check the validation of check in date
         Date checkInDate = null;
         try {
             checkInDate = sdf.parse(checkIn);
@@ -55,6 +58,7 @@ public class MoonParkService {
             throw new BadRequestException(401, "Check in date time not valid");
         }
 
+        //Check the validation of check out date
         Date checkOutDate = null;
         try {
             checkOutDate = sdf.parse(checkOut);
@@ -62,6 +66,7 @@ public class MoonParkService {
             throw new BadRequestException(401, "Check out date time not valid");
         }
 
+        //Check the validation of range
         if (checkOutDate.before(checkInDate)) {
             throw new BadRequestException(401, "Check out date time does not allow before check in date time");
         }
