@@ -1,1 +1,21 @@
+Task 5:
+
+MoonPark has made the price calculation engine open available to everyone. This is proving very popular, and several third-party services take it quickly in use.
+Unfortunately, it turns out that some clients for various reasons makes extremely many queries, which at times leads to a service overload.
+Propose a strategy to solve this problem. Give reasons for your answer.
+
+Answer:
+I think we solve this problem on 2 sides:
+1. In my system:
+- Provide authentication to user who use us services
+- Use cache for queries with same parameters
+- Increment the memory and CPU for server which contains us services
+
+2. Out my system:
+- Provide many kinds service package. Examples:
+   + Basic: Allow maximum 1000 queries to us server per day
+   + Advance: Allow maximum 10.000 queries to us server per day
+   + Platinum: No limit queries to server
+
+- If possible, we can move us services to cloude (Google, Amazon,...), because their hardwards are very strong :)
 
