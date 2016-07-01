@@ -3,6 +3,7 @@
 Calculate the price in the park
 
 ##1. Technologies used:
+> - Maven
 > - Java 7
 > - Spring 3.1.2.RELEASE
 > - Apache CXF 2.7.15
