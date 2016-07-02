@@ -68,7 +68,7 @@ public class MoonParkDate {
      * @return end of day (23:59:59 PM)
      */
     public Date getEndOfDay() {
-        return DateUtils.addMilliseconds(DateUtils.ceiling(getDate(), Calendar.DATE), -1);
+        return DateUtils.addMilliseconds(DateUtils.ceiling(getDate(), Calendar.DATE), 0);
     }
 
     /**
